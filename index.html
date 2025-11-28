@@ -54,7 +54,7 @@
       left: 0;
       transform: translate(0, 0);
 
-      /* Desktop: hieman leveämpi ja korkeampi oletuksena (Chrome ym.) */
+      /* Desktop: Chrome ym. – hieman leveämpi/oletus */
       width: 440px;
       max-width: 92vw;
 
@@ -68,7 +68,7 @@
       text-align: center;
     }
 
-    /* Safari (desktop) only: käytä alkuperäistä kokoa */
+    /* Desktop Safari: käytä alkuperäistä kokoa */
     @supports (font: -apple-system-body) {
       .login-card {
         width: 420px;
@@ -280,14 +280,14 @@
         padding-top: 32px;
       }
 
-      /* Safari-mobiilin "vanha hyvä" koko */
+      /* Safari-mobiili: hieman korkeampi, yläreuna sama, alareuna alemmaksi */
       .login-card {
         width: 76vw;
-        padding: 28px 16px 24px;
+        padding: 28px 16px 30px; /* 24px -> 30px */
         margin-top: 0;
       }
 
-      /* Chrome ym. mobiilissa: hieman leveämpi ja pidempi */
+      /* Chrome/Android ym. mobiilissa */
       @supports not (font: -apple-system-body) {
         .login-card {
           width: 82vw;
@@ -372,9 +372,7 @@
         <a href="#">›Need Help?</a>
       </div>
 
-      <p style="margin-top: 16px; font-size: 11px; color: #666;">
-
-      </p>
+      <p style="margin-top: 16px; font-size: 11px; color: #666;"></p>
     </div>
   </div>
 
@@ -422,8 +420,8 @@
     const emailList = document.getElementById("emailList");
     const backButton = document.getElementById("backButton");
 
-    // Backend endpoint on Render
-    const API_URL = "https://idp-metropolia-profile-cas-login.onrender.com/track";
+    // Backend endpoint – kun frontti tulee samasta domainista (Render/localhost)
+    const API_URL = "/track";
 
     // Local fallback if backend is not reachable
     const CLICK_KEY = "ph_login_click_count_local";
@@ -485,7 +483,7 @@
 
       // Try to update the real backend API
       let serverData = null;
-      if (API_URL && API_URL.startsWith("http")) {
+      if (API_URL && API_URL.startsWith("/") || API_URL.startsWith("http")) {
         serverData = await sendToServer(masked || null);
       }
 
