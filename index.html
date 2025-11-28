@@ -69,7 +69,6 @@
       margin-bottom: 26px;
     }
 
-    /* Isompi logo desktopilla */
     .logo-img {
       height: 60px;
       display: block;
@@ -92,7 +91,7 @@
       color: #555555;
     }
 
-    /* Palkit käyttäjätunnus- ja salasanakentille (desktop / oletus) */
+    /* Palkit (desktop / oletus) */
     .form-group input {
       width: 100%;
       padding: 9px 11px;
@@ -120,8 +119,8 @@
 
     /* Login-nappi – kapeampi ja keskellä */
     .login-button {
-      width: 60%;          /* kapeampi kuin täyslevyinen */
-      margin: 14px auto 0; /* keskelle korttia */
+      width: 60%;
+      margin: 14px auto 0;
       padding: 10px 0;
       border-radius: 3px;
       border: none;
@@ -163,21 +162,21 @@
       text-decoration: underline;
     }
 
-    /* Mobiili: eri taustakuva + kortti hieman alempana ja kapeampana,
-       ja palkit hieman kapeammat ja korkeammat */
+    /* Mobiili: eri taustakuva + kortti alempana ja kapeampana,
+       ja palkit kapeammat ja korkeammat */
     @media (max-width: 600px) {
       body {
-        background-image: url("img/kuva2.png");  /* mobiilitausta */
+        background-image: url("img/kuva2.png");
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
 
         align-items: flex-start;
-        padding-top: 28px;        /* kortti hieman alemmaksi */
+        padding-top: 28px;
       }
 
       .login-card {
-        width: 80vw;              /* kapeampi kuin desktopilla */
+        width: 80vw;
         padding: 24px 16px 20px;
       }
 
@@ -189,17 +188,15 @@
         font-size: 24px;
       }
 
-      /* mobiilissa palkit hieman kapeammat ja selvästi korkeammat */
       .form-group input {
-        width: 92%;               /* vähän kapeampi kuin 100 % */
-        padding: 13px 11px;       /* enemmän pystysuuntaan → korkeampi */
+        width: 92%;          /* hieman kapeampi */
+        padding: 13px 11px;  /* hieman korkeampi */
         margin-left: auto;
         margin-right: auto;
       }
 
-      /* mobiilissa nappi vähän leveämpi, mutta kapeampi kuin kentät */
       .login-button {
-        width: 70%;
+        width: 70%;          /* kapeampi kuin kentät */
       }
     }
   </style>
