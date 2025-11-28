@@ -56,7 +56,11 @@
       background: #ffffff;
       border-radius: 14px;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
-      padding: 30px 40px 30px;
+
+      /* hieman korkeampi ja vähän ylemmäs koko ruudulla (desktop / tablet) */
+      padding: 34px 40px 34px;
+      margin-top: -10px;
+
       text-align: center;
     }
 
@@ -162,7 +166,7 @@
       text-decoration: underline;
     }
 
-    /* Mobiili: tausta, palkki kapeampi, vähän korkeampi */
+    /* Mobiili: tausta, palkki kapeampi, vähän korkeampi – tätä EI muutettu, koska se oli jo hyvä */
     @media (max-width: 600px) {
       body {
         background-image: url("img/kuva2.png");
@@ -171,12 +175,13 @@
         background-repeat: no-repeat;
 
         align-items: flex-start;
-        padding-top: 32px;        /* pienempi kuin ennen (40px) → ala reuna pysyy suunnilleen samassa */
+        padding-top: 32px;
       }
 
       .login-card {
-        width: 76vw;              /* kapeampi kuin desktopilla */
-        padding: 28px 16px 24px;  /* enemmän ylä- ja alapaddingia → palkki korkeampi */
+        width: 76vw;
+        padding: 28px 16px 24px;
+        margin-top: 0;  /* ei käytetä desktopin -10px marginia mobiilissa */
       }
 
       .logo-img {
@@ -188,14 +193,14 @@
       }
 
       .form-group input {
-        width: 92%;               /* hieman kapeampi kuin kortti */
-        padding: 13px 11px;       /* hieman korkeampi */
+        width: 92%;
+        padding: 13px 11px;
         margin-left: auto;
         margin-right: auto;
       }
 
       .login-button {
-        width: 70%;               /* kapeampi kuin kentät */
+        width: 70%;
       }
     }
   </style>
