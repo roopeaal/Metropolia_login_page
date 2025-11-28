@@ -162,8 +162,7 @@
       text-decoration: underline;
     }
 
-    /* Mobiili: eri taustakuva + palkki alempana ja kapeampana,
-       ja inputit kapeammat ja korkeammat */
+    /* Mobiili: tausta, palkki kapeampi, vähän korkeampi */
     @media (max-width: 600px) {
       body {
         background-image: url("img/kuva2.png");
@@ -172,12 +171,12 @@
         background-repeat: no-repeat;
 
         align-items: flex-start;
-        padding-top: 40px;        /* palkki alemmaksi */
+        padding-top: 32px;        /* pienempi kuin ennen (40px) → ala reuna pysyy suunnilleen samassa */
       }
 
       .login-card {
-        width: 76vw;              /* palkki kapeammaksi */
-        padding: 24px 16px 20px;
+        width: 76vw;              /* kapeampi kuin desktopilla */
+        padding: 28px 16px 24px;  /* enemmän ylä- ja alapaddingia → palkki korkeampi */
       }
 
       .logo-img {
@@ -240,7 +239,7 @@
     </div>
 
     <p style="margin-top: 16px; font-size: 11px; color: #666;">
-     
+
     </p>
   </div>
 
