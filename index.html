@@ -118,10 +118,10 @@
         0 1px 2px rgba(0, 0, 0, 0.16) inset;
     }
 
-    /* Login-nappi */
+    /* Login-nappi – kapeampi ja keskellä */
     .login-button {
-      width: 100%;
-      margin-top: 14px;
+      width: 60%;          /* kapeampi kuin täyslevyinen */
+      margin: 14px auto 0; /* keskelle korttia */
       padding: 10px 0;
       border-radius: 3px;
       border: none;
@@ -133,6 +133,7 @@
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.6) inset,
         0 2px 0 rgba(170, 90, 0, 0.8);
+      display: block;
     }
 
     .login-button:hover {
@@ -162,8 +163,8 @@
       text-decoration: underline;
     }
 
-    /* Mobiili: eri taustakuva + kortti ylemmäs ja kapeammaksi,
-       ja palkit vähän kapeammat ja korkeammat */
+    /* Mobiili: eri taustakuva + kortti hieman alempana ja kapeampana,
+       ja palkit hieman korkeammat */
     @media (max-width: 600px) {
       body {
         background-image: url("img/kuva2.png");  /* mobiilitausta */
@@ -172,11 +173,11 @@
         background-repeat: no-repeat;
 
         align-items: flex-start;
-        padding-top: 28px;        /* kortti hieman alemmas kuin 16px */
+        padding-top: 28px;        /* kortti hieman alemmaksi */
       }
 
       .login-card {
-        width: 80vw;              /* vielä hieman kapeampi kuin 84vw */
+        width: 80vw;              /* kapeampi kuin desktopilla */
         padding: 24px 16px 20px;
       }
 
@@ -188,12 +189,17 @@
         font-size: 24px;
       }
 
-      /* mobiilissa palkki kapeampi ja hieman korkeampi */
+      /* mobiilissa palkit täyslevyiset kortin sisällä, mutta hieman korkeammat */
       .form-group input {
-        width: 90%;
+        width: 100%;
         padding: 12px 11px;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      /* mobiilissa nappi vähän leveämpi mutta edelleen kapeampi kuin kentät */
+      .login-button {
+        width: 70%;
       }
     }
   </style>
@@ -237,7 +243,8 @@
     </div>
 
     <p style="margin-top: 16px; font-size: 11px; color: #666;">
-
+      Tämä sivu on vain Practical Hacking -kurssin testi. Sivulle syötettyjä
+      tunnuksia ei tallenneta eikä sivu ole Metropolian virallinen kirjautumissivu.
     </p>
   </div>
 
@@ -245,8 +252,7 @@
     function handleSubmit(e) {
       e.preventDefault();
       alert(
-        "Tämä on vain Practical Hacking -kurssin testisivu. " +
-        "Kirjautumista ei oikeasti suoriteta eikä salasanoja tallenneta."
+
       );
     }
   </script>
