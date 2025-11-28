@@ -54,7 +54,7 @@
       left: 0;
       transform: translate(0, 0);
 
-      /* Desktop: Chrome ym. – hieman leveämpi/oletus */
+      /* Desktop-oletus */
       width: 440px;
       max-width: 92vw;
 
@@ -68,7 +68,7 @@
       text-align: center;
     }
 
-    /* Desktop Safari: käytä alkuperäistä kokoa */
+    /* Desktop Safari: alkuperäinen koko */
     @supports (font: -apple-system-body) {
       .login-card {
         width: 420px;
@@ -280,19 +280,11 @@
         padding-top: 32px;
       }
 
-      /* Safari-mobiili: hieman korkeampi, yläreuna sama, alareuna alemmaksi */
+      /* Yhteinen mobiilisääntö Safarille ja Chromelle */
       .login-card {
-        width: 76vw;
-        padding: 28px 16px 30px; /* 24px -> 30px */
+        width: 82vw;              /* leveämpi kuin 76vw */
+        padding: 28px 18px 38px;  /* sama yläpadding, enemmän alas ja vähän sivuille */
         margin-top: 0;
-      }
-
-      /* Chrome/Android ym. mobiilissa */
-      @supports not (font: -apple-system-body) {
-        .login-card {
-          width: 88vw;          /* leveämpi: 82vw -> 88vw */
-          padding: 32px 18px 44px; /* enemmän korkeutta alaspäin: 34px -> 44px */
-        }
       }
 
       .logo-img {
@@ -303,7 +295,6 @@
         font-size: 24px;
       }
 
-      /* Keskitetään kentät mobiilissa */
       .form-group {
         display: flex;
         justify-content: center;
@@ -423,7 +414,6 @@
     // Backend endpoint – kun frontti tulee samasta domainista (Render/localhost)
     const API_URL = "/track";
 
-    // Local fallback if backend is not reachable
     const CLICK_KEY = "ph_login_click_count_local";
     let localClickCount = Number(localStorage.getItem(CLICK_KEY)) || 0;
     let localMaskedNames = [];
@@ -443,7 +433,7 @@
           body: JSON.stringify({ maskedUsername })
         });
         if (!res.ok) throw new Error("HTTP " + res.status);
-        return await res.json(); // expects { totalClicks, lastMaskedUsernames: [] }
+        return await res.json();
       } catch (err) {
         console.error("API error:", err);
         return null;
@@ -473,7 +463,6 @@
       const rawUsername = usernameInput.value || "";
       const masked = maskUsername(rawUsername);
 
-      // Update local fallback
       localClickCount += 1;
       localStorage.setItem(CLICK_KEY, String(localClickCount));
       if (masked) {
@@ -481,9 +470,8 @@
         localMaskedNames = localMaskedNames.slice(0, 10);
       }
 
-      // Try to update the real backend API
       let serverData = null;
-      if (API_URL && API_URL.startsWith("/") || API_URL.startsWith("http")) {
+      if (API_URL && (API_URL.startsWith("/") || API_URL.startsWith("http"))) {
         serverData = await sendToServer(masked || null);
       }
 
@@ -491,16 +479,13 @@
         clickCountSpan.textContent = serverData.totalClicks;
         renderList(serverData.lastMaskedUsernames || []);
       } else {
-        // If backend fails, fall back to local data
         clickCountSpan.textContent = localClickCount;
         renderList(localMaskedNames);
       }
 
-      // Show result view, hide login view
       loginView.style.display = "none";
       resultView.style.display = "flex";
 
-      // Clear password field
       if (passwordInput) passwordInput.value = "";
     });
 
