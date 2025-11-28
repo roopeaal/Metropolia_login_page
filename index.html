@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
-  <meta charset="UTF-8">
-  <title>Metropolia – Login (testisivu)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Metropolia testi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
     * {
@@ -12,259 +12,307 @@
       padding: 0;
     }
 
+    html,
     body {
+      height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f4f5f7;
-      min-height: 100vh;
-      overflow: hidden;
     }
 
-    .page {
-      position: relative;
-      min-height: 100vh;
-      width: 100%;
-    }
-
-    /* Taustakuva: käytä omaa tiedostoasi tässä */
-    .bg-image {
-      position: fixed;
-      inset: 0;
-      background-image: url("img/metropolia-login.png"); /* <-- MUUTA TÄMÄ */
+    body {
+      /* VAIHDA TÄHÄN OMA TAUSTAKUVASI */
+      background-image: url("metropolia-login-tausta.png");
       background-size: cover;
-      background-position: center;
+      background-position: center center;
       background-repeat: no-repeat;
-      z-index: 0;
-      pointer-events: none;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .overlay-root {
+    /* Login-kortti etusivulla */
+
+    .login-card {
       position: relative;
-      z-index: 1;
+      top: 0;
+      left: 0;
+      transform: translate(0, 0);
+
+      width: 420px;
+      max-width: 90vw;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 14px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+      padding: 36px 40px 30px;
+      text-align: center;
+    }
+
+    .logo {
+      margin-bottom: 28px;
+      font-size: 32px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #444;
+    }
+
+    .form-group input {
       width: 100%;
-      min-height: 100vh;
-    }
-
-    /* Läpinäkyvä “kortti” oikean laatikon päällä */
-    .login-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(420px, 90vw);
-      aspect-ratio: 1.6 / 1; /* suunnilleen Metropolian login-kortin suhde */
-    }
-
-    /* Kentät ovat täysin läpinäkyviä, vain teksti näkyy */
-    .login-field {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 72%;
-      background: transparent;
-      border: none;
-      outline: none;
+      padding: 10px 12px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
       font-size: 14px;
-      padding: 6px 8px;
-      color: #333;
+      outline: none;
     }
 
-    .login-field::placeholder {
-      color: transparent; /* ettei tule tuplatekstiä kuvan päälle */
-    }
-
-    /* Sijainnit kortin sisällä (prosentteina, skaalaa näytön mukaan) */
-    .username-field {
-      top: 43%;
-    }
-
-    .password-field {
-      top: 57%;
+    .form-group input:focus {
+      border-color: #ff7a00;
+      box-shadow: 0 0 0 1px rgba(255, 122, 0, 0.25);
     }
 
     .login-button {
-      position: absolute;
-      top: 73%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40%;
-      height: 15%;
-      background: transparent;
+      width: 100%;
+      margin-top: 12px;
+      padding: 11px;
+      border-radius: 4px;
       border: none;
       cursor: pointer;
+      background-color: #ff7a00;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
     }
 
-    .login-button:focus-visible,
-    .login-field:focus-visible {
-      outline: 2px solid rgba(0, 0, 0, 0.5);
-      outline-offset: 2px;
+    .login-button:active {
+      transform: translateY(1px);
     }
 
-    /* Tulossivu, joka tulee nappia painamalla */
-    .result-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
+    .help-links {
+      margin-top: 18px;
+      font-size: 12px;
+    }
+
+    .help-links a {
+      display: block;
+      color: #c04040;
+      text-decoration: none;
+      margin-bottom: 4px;
+    }
+
+    .help-links a:hover {
+      text-decoration: underline;
+    }
+
+    .notice {
+      margin-top: 16px;
+      font-size: 11px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* Tulosnäkymä Login-napin painamisen jälkeen */
+
+    .result-wrapper {
+      min-height: 100vh;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
-      z-index: 2;
+      padding: 24px;
     }
 
     .result-card {
-      max-width: 480px;
+      max-width: 700px;
       width: 100%;
       background: rgba(255, 255, 255, 0.96);
-      border-radius: 12px;
+      border-radius: 14px;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
-      padding: 22px 24px 20px;
-      font-size: 14px;
-      line-height: 1.5;
+      padding: 32px 30px 26px;
+    }
+
+    .result-card h1 {
+      font-size: 24px;
+      margin-bottom: 12px;
     }
 
     .result-card h2 {
+      margin-top: 20px;
+      margin-bottom: 8px;
       font-size: 18px;
-      margin-bottom: 10px;
     }
 
-    .result-highlight {
-      font-weight: 700;
-      color: #ff7c2f;
+    .result-card p {
+      margin-bottom: 10px;
+      line-height: 1.5;
     }
 
     .result-card ul {
-      margin: 6px 0 12px;
-      padding-left: 18px;
+      margin-left: 18px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .alert {
+      color: #c02b2b;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .small {
+      font-size: 12px;
+      color: #555;
     }
 
     .result-card button {
-      margin-top: 10px;
-      border: none;
+      margin-top: 14px;
+      padding: 9px 16px;
       border-radius: 4px;
-      padding: 8px 14px;
+      border: none;
+      cursor: pointer;
+      background-color: #ff7a00;
+      color: #fff;
       font-size: 14px;
       font-weight: 600;
-      background: #ff7c2f;
-      color: #fff;
-      cursor: pointer;
     }
 
-    .result-card button:hover {
-      background: #f5691f;
-    }
-
-    /* Mobiili: hieman tiiviimpi overlay, mutta samat suhteet toimii */
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       body {
-        overflow-y: auto;
+        align-items: flex-start;
+        padding-top: 40px;
       }
 
-      .login-overlay {
-        top: 50%;
-        width: min(360px, 90vw);
+      .login-card {
+        width: 92vw;
+        padding: 28px 18px 22px;
+      }
+
+      .logo {
+        font-size: 24px;
+        margin-bottom: 18px;
       }
 
       .result-card {
-        font-size: 13px;
+        padding: 24px 16px 20px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <div class="bg-image" aria-hidden="true"></div>
 
-    <div class="overlay-root">
-      <!-- Läpinäkyvä login “kortti” kuvan päällä -->
-      <div class="login-overlay" id="loginView">
-        <form id="loginForm" autocomplete="off">
-          <input
-            id="username"
-            class="login-field username-field"
-            type="text"
-            autocomplete="username"
-            placeholder="Username"
-          >
-          <input
-            id="password"
-            class="login-field password-field"
-            type="password"
-            autocomplete="current-password"
-            placeholder="Password"
-          >
-          <button type="submit" class="login-button" aria-label="Login"></button>
-        </form>
+  <!-- LOGIN NÄKYMÄ -->
+  <div class="login-card" id="loginCard">
+    <div class="logo">Metropolia</div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username (sähköposti)</label>
+        <input id="username" type="text" name="username" autocomplete="off" />
       </div>
 
-      <!-- Tulossivu -->
-      <div class="result-overlay" id="resultView">
-        <div class="result-card">
-          <h2>Practical Hacking -kurssin testisivu</h2>
-          <p>
-            Login-nappia on painettu tällä laitteella yhteensä
-            <span class="result-highlight" id="clickCount">0</span> kertaa.
-          </p>
-          <p>Seuraavat käyttäjätunnukset tai sähköpostiosoitteet on syötetty Login-lomakkeeseen tämän istunnon aikana:</p>
-          <ul id="emailList"></ul>
-
-          <p>
-            <strong>Tärkeää:</strong> tämä sivu ei tallenna salasanoja mihinkään.
-            Sivun logiikka pyörii vain selaimessa, eikä tietoja lähetetä palvelimelle.
-          </p>
-          <p>
-            Kyseessä on vain Metropolian Practical Hacking -kurssin harjoitustesti,
-            ei oikea Metropolian kirjautumissivu.
-          </p>
-
-          <button type="button" id="backButton">Palaa takaisin testilomakkeelle</button>
-        </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" autocomplete="off" />
       </div>
+
+      <button type="submit" class="login-button">Login</button>
+    </form>
+
+    <div class="help-links">
+      <a href="#">›Forgot your password?</a>
+      <a href="#">›Need Help?</a>
     </div>
+
+    <p class="notice">
+      Tämä sivu on vain Practical Hacking -kurssin testi. Sivulle syötettyjä tunnuksia ei
+      lähetetä Metropolialle eikä salasanoja tallenneta. Älä käytä oikeaa salasanaasi.
+    </p>
   </div>
 
   <script>
-    const loginForm = document.getElementById("loginForm");
-    const loginView = document.getElementById("loginView");
-    const resultView = document.getElementById("resultView");
-    const clickCountSpan = document.getElementById("clickCount");
-    const emailList = document.getElementById("emailList");
-    const backButton = document.getElementById("backButton");
-
-    const CLICK_KEY = "ph_login_click_count";
-
-    let clickCount = Number(localStorage.getItem(CLICK_KEY)) || 0;
-    clickCountSpan.textContent = clickCount;
-
+    // Laskuri ja lista tämän sivun aukiolon ajalta
+    let loginCount = 0;
     const emails = [];
 
-    loginForm.addEventListener("submit", function (event) {
+    const form = document.getElementById("loginForm");
+
+    form.addEventListener("submit", handleSubmit);
+
+    function handleSubmit(event) {
       event.preventDefault();
 
       const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+
       const username = usernameInput.value.trim();
 
-      clickCount += 1;
-      localStorage.setItem(CLICK_KEY, String(clickCount));
-      clickCountSpan.textContent = clickCount;
-
+      loginCount += 1;
       if (username) {
         emails.push(username);
+      } else {
+        emails.push("(tyhjä käyttäjätunnus)");
       }
 
-      emailList.innerHTML = "";
-      emails.forEach(function (email) {
-        const li = document.createElement("li");
-        li.textContent = email;
-        emailList.appendChild(li);
-      });
+      // Tyhjennetään kentät, salasanaa ei käytetä mihinkään
+      usernameInput.value = "";
+      passwordInput.value = "";
 
-      loginView.style.display = "none";
-      resultView.style.display = "flex";
-    });
+      showResultPage();
+    }
 
-    backButton.addEventListener("click", function () {
-      resultView.style.display = "none";
-      loginView.style.display = "block";
-    });
+    function showResultPage() {
+      const uniqueEmails = Array.from(new Set(emails));
+      const emailListHtml = uniqueEmails.length
+        ? "<ul>" + uniqueEmails.map(function (email) {
+            return "<li>" + escapeHtml(email) + "</li>";
+          }).join("") + "</ul>"
+        : "<p>Yhtään käyttäjätunnusta tai sähköpostiosoitetta ei ole syötetty.</p>";
+
+      document.body.innerHTML = `
+        <div class="result-wrapper">
+          <div class="result-card">
+            <h1>Practical Hacking -testisivu</h1>
+            <p class="alert">Tämä ei ole Metropolian virallinen kirjautumissivu.</p>
+            <p>
+              Login-nappia on painettu yhteensä
+              <strong>${loginCount}</strong> kertaa tämän sivun aukiolon aikana.
+            </p>
+
+            <h2>Syötetyt käyttäjätunnukset / sähköpostiosoitteet</h2>
+            ${emailListHtml}
+
+            <p class="small">
+              Salasanaa ei lähetetä minnekään eikä sitä tallenneta. Kaikki käsittely
+              tapahtuu vain tässä selaimessa harjoitustarkoituksessa.
+            </p>
+
+            <p class="small">
+              Tämä sivu on osa Practical Hacking -kurssin harjoitusta, ei oikea Metropolian kirjautumispalvelu.
+            </p>
+
+            <button onclick="location.reload()">Palaa takaisin testisivulle</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Pieni suoja: estetään html-koodin ujuttaminen käyttäjätunnukseen
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
   </script>
 </body>
 </html>
