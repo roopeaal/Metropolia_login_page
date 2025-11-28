@@ -25,8 +25,9 @@
       background-repeat: no-repeat;
 
       display: flex;
-      align-items: center;
+      align-items: flex-start;   /* ennen: center */
       justify-content: center;
+      padding-top: 60px;         /* siirtää korttia hieman alemmas desktopilla */
     }
 
     .sr-only {
@@ -54,8 +55,8 @@
       left: 0;
       transform: translate(0, 0);
 
-      /* Desktop-oletus */
-      width: 440px;
+      /* Desktop-oletus – leveämpi */
+      width: 460px;
       max-width: 92vw;
 
       background: #ffffff;
@@ -63,18 +64,18 @@
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
 
       padding: 38px 42px 56px;
-      margin-top: -6px;
+      margin-top: 0;
 
       text-align: center;
     }
 
-    /* Desktop Safari: alkuperäinen koko */
+    /* Desktop Safari: pidetään sama leveys, hieman pehmeämpi padding */
     @supports (font: -apple-system-body) {
       .login-card {
-        width: 420px;
-        max-width: 90vw;
-        padding: 34px 40px 50px;
-        margin-top: -10px;
+        width: 460px;
+        max-width: 92vw;
+        padding: 36px 42px 54px;
+        margin-top: 0;
       }
     }
 
@@ -280,10 +281,10 @@
         padding-top: 32px;
       }
 
-      /* Yhteinen mobiilisääntö Safarille ja Chromelle */
+      /* Yhteinen mobiilisääntö Safarille ja Chromelle – tämä jätetty ennalleen */
       .login-card {
-        width: 80vw;              /* vähän kapeampi */
-        padding: 28px 18px 42px;  /* sama yläreuna, alareuna vielä alemmas */
+        width: 80vw;
+        padding: 28px 18px 42px;
         margin-top: 0;
       }
 
