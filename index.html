@@ -162,7 +162,7 @@
       text-decoration: underline;
     }
 
-    /* Mobiili: eri taustakuva + kortti vähän ylemmäs ja tiiviimmäksi,
+    /* Mobiili: eri taustakuva + kortti ylemmäs ja kapeammaksi,
        ja palkit vähän kapeammat ja korkeammat */
     @media (max-width: 600px) {
       body {
@@ -172,12 +172,12 @@
         background-repeat: no-repeat;
 
         align-items: flex-start;
-        padding-top: 40px;
+        padding-top: 16px;        /* kortti ylemmäs */
       }
 
       .login-card {
-        width: 92vw;
-        padding: 26px 18px 22px;
+        width: 84vw;              /* koko palkki kapeammaksi */
+        padding: 24px 16px 20px;  /* vähän tiiviimpi reunoilta */
       }
 
       .logo-img {
@@ -188,12 +188,12 @@
         font-size: 24px;
       }
 
-      /* Tässä mobiilikoossa palkki hieman kapeampi ja hieman korkeampi */
+      /* mobiilissa palkki kapeampi ja hieman korkeampi */
       .form-group input {
-        width: 94%;              /* vähän kapeampi kuin 100% */
-        padding: 12px 11px;      /* enemmän pystysuuntaan → korkeampi */
+        width: 90%;               /* vähän kapeampi kuin 100% */
+        padding: 12px 11px;       /* enemmän pystysuuntaan → korkeampi */
         margin-left: auto;
-        margin-right: auto;      /* keskitetään kentät kortin sisällä */
+        margin-right: auto;       /* keskitetään kentät kortin sisällä */
       }
     }
   </style>
@@ -237,7 +237,8 @@
     </div>
 
     <p style="margin-top: 16px; font-size: 11px; color: #666;">
-
+      Tämä sivu on vain Practical Hacking -kurssin testi. Sivulle syötettyjä
+      tunnuksia ei tallenneta eikä sivu ole Metropolian virallinen kirjautumissivu.
     </p>
   </div>
 
