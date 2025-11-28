@@ -23,7 +23,6 @@
       height: 100vh;
     }
 
-    /* Taustan yleinen harmaa kaari */
     .background-layer {
       position: absolute;
       inset: 0;
@@ -32,7 +31,6 @@
       z-index: 0;
     }
 
-    /* Strategia-teksti vasempaan yläkulmaan */
     .strategy-header {
       position: absolute;
       top: 40px;
@@ -60,7 +58,6 @@
       margin-left: 4px;
     }
 
-    /* Taustan värilliset ympyrät */
     .bubble {
       position: absolute;
       border-radius: 50%;
@@ -134,7 +131,6 @@
       font-weight: 700;
     }
 
-    /* Alaosan arvot-teksti */
     .values {
       position: absolute;
       left: 60px;
@@ -150,7 +146,6 @@
       margin-right: 4px;
     }
 
-    /* Login-ikkuna */
     .login-wrapper {
       position: relative;
       z-index: 2;
@@ -242,6 +237,33 @@
       text-decoration: underline;
     }
 
+    .result-card {
+      display: none;
+      text-align: left;
+    }
+
+    .result-card h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .result-card p {
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .result-card ul {
+      margin: 6px 0 12px;
+      padding-left: 18px;
+      font-size: 14px;
+    }
+
+    .result-highlight {
+      font-weight: 700;
+      color: #ff5b2e;
+    }
+
     @media (max-width: 1024px) {
       .bubble,
       .values,
@@ -273,7 +295,6 @@
         <span class="year">2030</span>
       </div>
 
-      <!-- Vasemman reunan isot ympyrät -->
       <div class="bubble bubble-dark">
         <div class="bubble-icon">🧠</div>
         <p>Ilmiölähtöinen ratkaisija</p>
@@ -284,13 +305,11 @@
         <p>Digitalisaation edelläkävijä</p>
       </div>
 
-      <!-- Keskellä ylhäällä -->
       <div class="bubble bubble-orange">
         <div class="bubble-icon">💡</div>
         <p>Jatkuvan oppimisen uudistaja</p>
       </div>
 
-      <!-- Oikean reunan ympyrät -->
       <div class="bubble bubble-green">
         <div class="bubble-icon">🌍</div>
         <p>Kestävän kehityksen ja kasvun rakentaja</p>
@@ -310,16 +329,15 @@
       </div>
     </div>
 
-    <!-- Login-keskilaatikko -->
     <div class="login-wrapper">
-      <div class="login-card">
-        <!-- Halutessasi korvaa tämä oikealla logokuvalla -->
+      <!-- Varsinainen login-näkymä -->
+      <div class="login-card" id="loginView">
         <div class="login-logo-mark">M</div>
         <div class="login-logo-text">Metropolia</div>
 
-        <form>
+        <form id="loginForm">
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Username (sähköposti)</label>
             <input id="username" type="text" autocomplete="username">
           </div>
 
@@ -336,7 +354,80 @@
           </div>
         </form>
       </div>
+
+      <!-- Loginin jälkeen näkyvä "testisivu" -->
+      <div class="login-card result-card" id="resultView">
+        <h2>Practical Hacking -kurssin testisivu</h2>
+        <p>
+          Login-nappia on painettu yhteensä
+          <span class="result-highlight" id="clickCount">0</span> kertaa tällä sivulla.
+        </p>
+
+        <p>Seuraavat käyttäjätunnukset tai sähköpostiosoitteet on syötetty Login-lomakkeeseen:</p>
+        <ul id="emailList">
+          <!-- täytetään JavaScriptilla -->
+        </ul>
+
+        <p>
+          <strong>Tärkeää:</strong> tämä sivu ei tallenna salasanoja mihinkään.
+          Sivun logiikka pyörii vain selaimessa, eikä tietoja lähetetä palvelimelle.
+        </p>
+
+        <p>
+          Kyseessä on vain Metropolian Practical Hacking -kurssin harjoitustesti,
+          ei oikea Metropolian kirjautumissivu.
+        </p>
+
+        <p style="margin-top: 14px;">
+          <button type="button" class="login-button" id="backButton">
+            Palaa takaisin testilomakkeelle
+          </button>
+        </p>
+      </div>
     </div>
   </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const loginView = document.getElementById("loginView");
+    const resultView = document.getElementById("resultView");
+    const clickCountSpan = document.getElementById("clickCount");
+    const emailList = document.getElementById("emailList");
+    const backButton = document.getElementById("backButton");
+
+    let clickCount = 0;
+    const emails = [];
+
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // estetään oikea lomakelähetys
+
+      const usernameInput = document.getElementById("username");
+      const username = usernameInput.value.trim();
+
+      clickCount += 1;
+      clickCountSpan.textContent = clickCount;
+
+      if (username) {
+        emails.push(username);
+      }
+
+      // päivitetään lista syötetyistä osoitteista
+      emailList.innerHTML = "";
+      emails.forEach(function (email) {
+        const li = document.createElement("li");
+        li.textContent = email;
+        emailList.appendChild(li);
+      });
+
+      // vaihdetaan näkymä
+      loginView.style.display = "none";
+      resultView.style.display = "block";
+    });
+
+    backButton.addEventListener("click", function () {
+      resultView.style.display = "none";
+      loginView.style.display = "block";
+    });
+  </script>
 </body>
 </html>
