@@ -92,7 +92,7 @@
       color: #555555;
     }
 
-    /* “Palkit” käyttäjätunnus- ja salasanakentille (desktop / oletus) */
+    /* Palkit käyttäjätunnus- ja salasanakentille (desktop / oletus) */
     .form-group input {
       width: 100%;
       padding: 9px 11px;
@@ -164,7 +164,7 @@
     }
 
     /* Mobiili: eri taustakuva + kortti hieman alempana ja kapeampana,
-       ja palkit hieman korkeammat */
+       ja palkit hieman kapeammat ja korkeammat */
     @media (max-width: 600px) {
       body {
         background-image: url("img/kuva2.png");  /* mobiilitausta */
@@ -189,15 +189,15 @@
         font-size: 24px;
       }
 
-      /* mobiilissa palkit täyslevyiset kortin sisällä, mutta hieman korkeammat */
+      /* mobiilissa palkit hieman kapeammat ja selvästi korkeammat */
       .form-group input {
-        width: 100%;
-        padding: 12px 11px;
-        margin-left: 0;
-        margin-right: 0;
+        width: 92%;               /* vähän kapeampi kuin 100 % */
+        padding: 13px 11px;       /* enemmän pystysuuntaan → korkeampi */
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      /* mobiilissa nappi vähän leveämpi mutta edelleen kapeampi kuin kentät */
+      /* mobiilissa nappi vähän leveämpi, mutta kapeampi kuin kentät */
       .login-button {
         width: 70%;
       }
@@ -243,6 +243,7 @@
     </div>
 
     <p style="margin-top: 16px; font-size: 11px; color: #666;">
+
     </p>
   </div>
 
@@ -250,7 +251,8 @@
     function handleSubmit(e) {
       e.preventDefault();
       alert(
-
+        "Tämä on vain Practical Hacking -kurssin testisivu. " +
+        "Kirjautumista ei oikeasti suoriteta eikä salasanoja tallenneta."
       );
     }
   </script>
